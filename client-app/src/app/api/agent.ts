@@ -12,6 +12,8 @@ const sleep = (delay: number) => {
 
 axios.defaults.baseURL = 'http://localhost:5000/api'
 
+const responseBody = <T>(response: AxiosResponse<T>) => response.data;
+
 axios.interceptors.response.use(async response => {
     await sleep(1000);
     return response;
@@ -50,8 +52,6 @@ axios.interceptors.response.use(async response => {
     }
     return Promise.reject(error);
 })
-
-const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 const requests = {
     get: <T>(url: string) => axios.get<T>(url).then(responseBody),
